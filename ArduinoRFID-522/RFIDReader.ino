@@ -16,47 +16,52 @@
 #include <MFRC522.h>
 
 #define RST_PIN  9
-#define SS_PIN  10
+#define SS_PIN  10 
 
 #define buz 6 // passive buzzer
 
 // music tones
-#define Err  165 // if the card is not registered
-#define OK  880 // if the card is registered
-#define det 659 // when a card is detected
+#define Err  165
+#define OK  880
+#define det 659
 
-MFRC522 mfrc522(SS_PIN, RST_PIN); // crea objeto mfrc522 enviando pines de slave select y reset
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+
+const unsigned long INTERVAL_RES = 5000UL;
+unsigned long event_res = 0;
 
 byte LecturaUID[4];
 
 void setup() {
-  Serial.begin(9600);     // inicializa comunicacion por monitor serie a 9600 bps
-  SPI.begin();        // inicializa bus SPI
-  mfrc522.PCD_Init();     // inicializa modulo lector
+  Serial.begin(9600);
+  SPI.begin();
+  mfrc522.PCD_Init();
   pinMode(buz, OUTPUT);
 }
 
 void loop() {
-  if ( ! mfrc522.PICC_IsNewCardPresent()) // si no hay una tarjeta presente
+  if ( ! mfrc522.PICC_IsNewCardPresent())
     return;
   
-  if ( ! mfrc522.PICC_ReadCardSerial())   // si no puede obtener datos de la tarjeta
+  if ( ! mfrc522.PICC_ReadCardSerial())
     return;
 
   detected();
-  for (byte i = 0; i < mfrc522.uid.size; i++) { // bucle recorre de a un byte por vez el UID
-    if (mfrc522.uid.uidByte[i] < 0x10){   // si el byte leido es menor a 0x10
-      Serial.print(" 0");     // imprime espacio en blanco y numero cero
+  for (byte i = 0; i < mfrc522.uid.size; i++) { 
+    if (mfrc522.uid.uidByte[i] < 0x10){
+      Serial.print(" 0");
       }
-      else{         // sino
-      Serial.print(" ");      // imprime un espacio en blanco
+      else{
+      Serial.print(" ");
       }
-    Serial.print(mfrc522.uid.uidByte[i], HEX);  // imprime el byte del UID leido en hexadecimal
+    Serial.print(mfrc522.uid.uidByte[i], HEX);
   } 
   Serial.println();
 
-  while (Serial.available() == 0) {}     //wait for data available
-  String answer = Serial.readString();  //read until timeout
+  event_res = millis();
+  
+  while (Serial.available() == 0 && (millis() - event_res) < INTERVAL_RES) {}
+  String answer = Serial.readString();
   answer.trim();
 
   if(answer == "OK"){
@@ -66,7 +71,7 @@ void loop() {
     Error();
   }
   
-  mfrc522.PICC_HaltA();                   // detiene comunicacion con tarjeta
+  mfrc522.PICC_HaltA();
 
   delay(1000);
 }
