@@ -16,6 +16,7 @@ io.on('connection', (socket)=>{
     
     socket.on('disconnect', () => {
         console.log('user disconnected');
+        parser.removeAllListeners();
     });
     parser.on('data', function (data) {
         io.emit("new info", data);
