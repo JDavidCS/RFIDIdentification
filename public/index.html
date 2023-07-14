@@ -17,10 +17,10 @@
 
 
         $putInfo.append('Información a continuación:');
+        let $txt = document.createElement('p');
+        $putInfo.appendChild($txt);
         socket.on('new info', function( msg ){
-            let $txt = document.createElement('p');
             $txt.textContent = msg;
-            $putInfo.appendChild($txt);
         });
     </script>
 </body>

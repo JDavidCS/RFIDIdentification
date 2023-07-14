@@ -7,35 +7,21 @@ const io = new Server(server);
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 
+let USBport, parser;
 
-const isOpen = IsOpen();
+const connectSerialPort = () => {
+    const path = 'COM5';
+    const baudRate = 9600;
+    USBport = new SerialPort({ path, baudRate });
 
-isOpen
-    .then((USBport) => {
-        Open(USBport)
-    })
-    .catch( err =>{
-        Close(err);
-    })
-
-
-function IsOpen(){
-    return new Promise((resolve, reject)=>{
-        const USBport = new SerialPort({ path: 'COM5', baudRate: 9600 });
-    
-        USBport.on('error', (err) => {
-            reject(err);
-        });
-    
-        USBport.on('open', () => {
-            resolve(USBport);
-        });
-    });
+    USBport.on('open', Open);
+    USBport.on('error', Close);
+    USBport.on('close', Close);
 }
 
-function Open(USBport){
-    const parser = USBport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
-    
+function Open(){
+    parser = USBport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+
     parser.on('data', function (data) {
         console.log(data);
         if(data == ' 49 92 FA 6E'){
@@ -47,23 +33,19 @@ function Open(USBport){
             io.emit("new info", "UNKNOWN");
         }
     });
-    io.on('connection', (socket)=>{
-        console.log('a user connected');
-        
-        socket.on('disconnect', () => {
-            console.log('user disconnected');
-        }); 
-    });
 }
 
 function Close(err){
-    io.on('connection', (socket)=>{
-        console.log('a user connected');
+    io.removeAllListeners();
         
-        io.emit('new info', 'ERROR, RFID reader disconnected');
-        socket.on('disconnect', () => {
-            console.log('user disconnected'); 
-        }); 
-    });
+    io.emit('new info', 'ERROR, RFID reader disconnected');
+    setTimeout(() => {
+        // console.log(io.rawListeners('connection'));
+        // console.log(io.rawListeners('connection').find(el => el.listener.name == 'emmiteError'));
+        console.log(io.rawListeners('connection').map(el => el.listener.name).includes('emitError'));
+        console.log(USBport.rawListeners('on'));
+        connectSerialPort();
+    }, 2000);
 }
 
+connectSerialPort();
