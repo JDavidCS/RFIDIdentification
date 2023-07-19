@@ -6,6 +6,7 @@ const io = new Server(server);
 // Serial Port Comunication
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
+const { getByRfid } = require('./controllers/ApiEmployee');
 
 let USBport, parser;
 
@@ -20,19 +21,33 @@ const connectSerialPort = () => {
 }
 
 function Open(){
-    parser = USBport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+    try {
+        parser = USBport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+    
+        parser.on('data', async function (data) {
+            console.log(data);
 
-    parser.on('data', function (data) {
-        console.log(data);
-        if(data == ' 49 92 FA 6E'){
-            USBport.write('OK', 'ascii');
-            io.emit("new info", data);
-        }
-        else{
-            USBport.write('Err', 'ascii');
-            io.emit("new info", "UNKNOWN");
-        }
-    });
+            const employee = await getByRfid(data);
+    
+            if(employee){
+                io.emit("new info", employee);
+                USBport.write('OK', 'ascii');
+            }
+            else{
+                USBport.write('Err', 'ascii');
+                io.emit("new info", "UNKNOWN");
+            }
+
+            // if(data == ' 49 92 FA 6E'){
+            //     USBport.write('OK', 'ascii');
+            //     io.emit("new info", data);
+            // }
+        });
+        
+    } catch (error) {
+        console.log(err);
+    }
+
 }
 
 function Close(err){

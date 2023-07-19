@@ -1,0 +1,15 @@
+{
+    "Employees": [
+        {
+            "id": 1,
+            "id_rfid": " 49 92 FA 6E",
+            "name": "Andrea",
+            "lastName": "Castro",
+            "position": "Designer",
+            "entry_time": "8:00"
+        },
+        {
+
+        }
+    ]
+}
