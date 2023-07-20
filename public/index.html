@@ -20,7 +20,8 @@
         let $txt = document.createElement('p');
         $putInfo.appendChild($txt);
         socket.on('new info', function( msg ){
-            $txt.textContent = JSON.stringify(msg);
+            if(msg) $txt.textContent = JSON.stringify(msg);
+            else $txt.textContent = "UNKNOWN";
         });
     </script>
 </body>

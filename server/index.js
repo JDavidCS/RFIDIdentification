@@ -23,7 +23,9 @@ const connectSerialPort = () => {
 function Open(){
     try {
         parser = USBport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
-    
+
+        
+        console.log("\nSerialPort Connectect");
         parser.on('data', async function (data) {
             console.log(data);
 
@@ -35,7 +37,7 @@ function Open(){
             }
             else{
                 USBport.write('Err', 'ascii');
-                io.emit("new info", "UNKNOWN");
+                io.emit("new info", undefined);
             }
 
             // if(data == ' 49 92 FA 6E'){
@@ -51,14 +53,14 @@ function Open(){
 }
 
 function Close(err){
+    delete USBport;
     io.removeAllListeners();
         
     io.emit('new info', 'ERROR, RFID reader disconnected');
     setTimeout(() => {
         // console.log(io.rawListeners('connection'));
         // console.log(io.rawListeners('connection').find(el => el.listener.name == 'emmiteError'));
-        console.log(io.rawListeners('connection').map(el => el.listener.name).includes('emitError'));
-        console.log(USBport.rawListeners('on'));
+        console.log("SerialPort Connection have failed");
         connectSerialPort();
     }, 2000);
 }
