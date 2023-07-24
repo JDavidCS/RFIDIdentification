@@ -1,0 +1,98 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    background-color: #ccc;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back{
+    position: relative;
+    background-color: #fff;
+    width: 95%;
+    height: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusSVG{
+    background-color: aqua;
+    position: relative;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.statusSVG .wait{
+    width: 100vmin;
+}
+
+.statusSVG .response{
+    width: 60vmin;
+}
+
+.EmployeeLayer{
+    padding: 30px;
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1.2fr repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.employee__photo{
+    background-color: #f51;
+    grid-row: span 2;
+}
+
+.employee__info{
+    grid-column: span 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.employee__name{
+    font-weight: 100;
+    margin: 0;
+    font-size: 55pt;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.employee__position{
+    display: inline;
+    margin: 0%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20pt;
+    font-weight: 100;
+    background-color: #dd0;
+}
+
+.currentTime{
+    background-color: #24f;
+}
+.employee__entryTime{
+    background-color: #dd0;
+}
+.welcome-message{
+    color: #666;
+    margin: 0;
+    align-self: center;
+    text-align: center;
+    grid-column: span 3;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 50pt;
+    font-weight: 100;
+    text-transform: uppercase;
+}

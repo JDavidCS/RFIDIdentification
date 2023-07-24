@@ -60,7 +60,7 @@ function Close(err){
     setTimeout(() => {
         // console.log(io.rawListeners('connection'));
         // console.log(io.rawListeners('connection').find(el => el.listener.name == 'emmiteError'));
-        console.log("SerialPort Connection have failed");
+        // console.log("SerialPort Connection have failed");
         connectSerialPort();
     }, 2000);
 }

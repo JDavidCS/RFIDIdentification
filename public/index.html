@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Prueba</title>
 </head>
 <body>
-    <h1>Hola mundo</h1>
-    <div id="displaySocked"></div>
+    <!-- <h1>Hola mundo</h1>
+    <div id="displaySocked"></div> -->
+
+    <div class="back">
+        <div class="statusSVG">
+                <!-- <img src="resources/Wait2.svg" alt="" class="wait"> -->
+                <!-- <img src="resources/Correct2.svg" alt="" class="response"> -->
+        </div>
+        <div class="EmployeeLayer">
+            <div class="employee__photo"></div>
+            <div class="employee__info">
+                <h2 class="employee__name">Stefan Stefancik</h2>
+                <p class="employee__position">Audio-visual Media</p>
+            </div>
+            <div class="currentTime"></div>
+            <div class="employee__entryTime"></div>
+            <h3 class="welcome-message">good morning</h3>
+        </div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
 
-        const $putInfo = document.querySelector('#displaySocked');
+        // const $putInfo = document.querySelector('#displaySocked');
 
 
-        $putInfo.append('Información a continuación:');
-        let $txt = document.createElement('p');
-        $putInfo.appendChild($txt);
-        socket.on('new info', function( msg ){
-            if(msg) $txt.textContent = JSON.stringify(msg);
-            else $txt.textContent = "UNKNOWN";
-        });
+        // $putInfo.append('Información a continuación:');
+        // let $txt = document.createElement('p');
+        // $putInfo.appendChild($txt);
+        // socket.on('new info', function( msg ){
+        //     if(msg) $txt.textContent = JSON.stringify(msg);
+        //     else $txt.textContent = "UNKNOWN";
+        // });
     </script>
 </body>
 </html>
