@@ -12,14 +12,18 @@
 
     <div class="back">
         <div class="statusSVG">
-                <!-- <img src="resources/Wait2.svg" alt="" class="wait"> -->
-                <!-- <img src="resources/Correct2.svg" alt="" class="response"> -->
+            <h1 id="disconnected" style="display: none;">RFID desconectado</h1>
+            <img src="resources/Wait2.svg" alt="" class="wait" id="wait">
+            <img src="resources/Correct2.svg" alt="" class="response" id="correct" style="display: none;">
+            <img src="resources/Error2.svg" alt="" class="response" id="error" style="display: none;">
         </div>
-        <div class="EmployeeLayer">
-            <div class="employee__photo"></div>
+        <div class="EmployeeLayer" id="emp_layer" style="display: none;">
+            <div class="employee__photo">
+                <img src="" alt="" id="emp__img">
+            </div>
             <div class="employee__info">
-                <h2 class="employee__name">Stefan Stefancik</h2>
-                <p class="employee__position">Audio-visual Media</p>
+                <h2 class="employee__name" id="emp_name">Stefan Stefancik</h2>
+                <p class="employee__position" id="emp_position">Audio-visual Media</p>
             </div>
             <div class="currentTime"></div>
             <div class="employee__entryTime"></div>
@@ -28,8 +32,11 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
+    <script src="./script/socketHadler.js"></script>
     <script>
-        var socket = io();
+        // var socket = io();
+
+
 
         // const $putInfo = document.querySelector('#displaySocked');
 

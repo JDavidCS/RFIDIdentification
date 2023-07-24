@@ -10,7 +10,6 @@ app.use(express.static(__dirname + '/../public', { type: 'text/css' }));
 
 app.get('/', (req, res)=>{
     res.status(200);
-    // res.setHeader('Content-type', 'text/html');
     res.sendFile(pathIndex);
 });
 

@@ -24,6 +24,7 @@ function Open(){
     try {
         parser = USBport.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 
+        io.emit('status', 'ok');
         
         console.log("\nSerialPort Connectect");
         parser.on('data', async function (data) {
@@ -56,7 +57,7 @@ function Close(err){
     delete USBport;
     io.removeAllListeners();
         
-    io.emit('new info', 'ERROR, RFID reader disconnected');
+    io.emit('status', 'error');
     setTimeout(() => {
         // console.log(io.rawListeners('connection'));
         // console.log(io.rawListeners('connection').find(el => el.listener.name == 'emmiteError'));
