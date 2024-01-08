@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
 *{
     box-sizing: border-box;
 }
@@ -46,12 +48,19 @@ body{
     display: grid;
     grid-template-columns: 1.2fr repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr) 0.8fr;
-    gap: 10px;
+    gap: 20px;
 }
 
 .employee__photo{
-    background-color: #f51;
+    /* background-color: #aaa; */
     grid-row: span 2;
+}
+.employee__photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .employee__info{
@@ -78,9 +87,40 @@ body{
     background-color: #dd0;
 }
 
-.currentTime{
-    background-color: #24f;
+.time{
+    font-family: "Roboto";
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px;
 }
+.currentTime{
+    background-color: #bbb;
+}
+.time-title{
+    margin: 0;
+    font-size: 20pt;
+}
+.time-time{
+    font-size: 70pt;
+}
+.time-journey, .time-hour{
+    display: inline;
+}
+.time-hour{
+    font-weight: 400;
+}
+.time-journey{
+    font-size: 50pt;
+    font-weight: 300;
+}
+
+.time-time p{
+    margin: 0;
+}
+
 .employee__entryTime{
     background-color: #dd0;
 }

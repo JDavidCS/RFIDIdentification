@@ -28,7 +28,6 @@ function Open(){
         
         console.log("\nSerialPort Connectect");
         parser.on('data', async function (data) {
-            console.log(data);
 
             const employee = await getByRfid(data);
     

@@ -13,7 +13,10 @@ const $employee_layer = document.querySelector('#emp_layer');
 const $employee_img = document.querySelector('#emp_img');
 const $employee_name = document.querySelector('#emp_name');
 const $employee_position = document.querySelector('#emp_position');
-
+const $currentHour = document.querySelector("#currentHour");
+const $currentJourney = document.querySelector("#currentJourney");
+const $arrivalHour = document.querySelector("#arrivalHour");
+const $arrivalJourney = document.querySelector("#arrivalJourney");
 
 // variables
 let timeout;
@@ -36,9 +39,7 @@ socket.on('new info', function(msg){
     if(msg){
         $wait.style.display = 'none';
         $correct.style.display = '';
-        setTimeout(() => {
-            renderInfo(msg);
-        }, 1000);
+        renderInfo(msg);
     }
     else{
         $wait.style.display = 'none';
@@ -51,14 +52,35 @@ socket.on('new info', function(msg){
 });
 
 function renderInfo(msg){
-    $correct.style.display = 'none';
-    $employee_layer.style.display = '';
-
+    
     $employee_name.textContent = msg.name;
     $employee_position.textContent = msg.position;
+    $employee_img.src = msg.photo;
+    $arrivalHour.innerText = msg.arrival_time.hour;
+    $arrivalJourney.innerText = msg.arrival_time.journey;
 
+    let time  = new Date();
+    let hours = time.getHours();
+    let minutes = time.getMinutes();
+    let ampm = hours >= 12 ? "pm" : "am";
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    minutes = minutes < 10 ? "0"+minutes : minutes;
+    time = `${hours}:${minutes}`
+
+    $currentHour.innerText = time;
+    $currentJourney.innerText = ampm;
+    
+    setTimeout(() => {
+        $correct.style.display = 'none';
+        $employee_layer.style.display = '';
+    }, 1000);
     timeout = setTimeout(() => {
         $employee_layer.style.display = 'none';
+        $employee_img.src = '';
+        
         $wait.style.display = '';
     }, 5000);
 }

@@ -1,15 +1,28 @@
 {
     "Employees": [
         {
-            "id": 1,
-            "id_rfid": " 49 92 FA 6E",
-            "name": "Andrea",
-            "lastName": "Castro",
-            "position": "Designer",
-            "entry_time": "8:00"
+          "id": 1,
+          "id_rfid": " 49 92 FA 6E",
+          "name": "Andrea",
+          "lastName": "Castro",
+          "position": "Designer",
+          "arrival_time": {
+            "hour": "8:00",
+            "journey": "am"
+          },
+          "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         },
         {
-
+            "id": 2,
+            "id_rfid": " 6A 99 0E 67",
+            "name": "Jhonathan",
+            "lastName": "McFly",
+            "position": "Manager",
+            "arrival_time": {
+                "hour": "8:40",
+                "journey": "am"
+            },
+            "photo": "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D"
         }
     ]
 }
